@@ -12,3 +12,5 @@ echo "<br>" . substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, strpos($_SERVER['HTTP_
 preg_match("/\(([^)]+)\)/", $_SERVER['HTTP_USER_AGENT'], $os);
 echo "<br>" . 
     $os[1];
+
+echo "<br>" . $_SERVER['REMOTE_ADDR'];
