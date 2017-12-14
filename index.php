@@ -1,16 +1,22 @@
 <?php
 
 // Print HTTP header information and other info that the server collected ** For Testing Purposes **
-foreach ($_SERVER as $key => $value) {
-    echo $key . " : " . $value . "<br>";
-}
+//foreach ($_SERVER as $key => $value) {
+//    echo $key . " : " . $value . "<br>";
+//}
 
-// Find the languange of the browser.
-echo "<br>" . substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], ","));
+// Get IP address of guest device
+$headerObj->ipAddress = $_SERVER['REMOTE_ADDR'];
 
-// Find the OS of the guest computer.
+// Get the language of the browser of the device
+$fullLangaugeText = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+$language =  substr($fullLanguageText, 0, strpos($fullLanguageText, ","));
+
+// Get the OS name of the guest computer.
 preg_match("/\(([^)]+)\)/", $_SERVER['HTTP_USER_AGENT'], $os);
-echo "<br>" . 
-    $os[1];
+$headerObj->software = $os[1];
 
-echo "<br>" . $_SERVER['REMOTE_ADDR'];
+// Make a JSON object
+$headerJSON = json_encode($headerObj);
+
+echo $headerJSON;
